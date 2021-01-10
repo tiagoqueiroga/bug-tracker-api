@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { IssuesService } from './issues.service';
 import { CreateIssueDto } from './dto/create-issue.dto';
 import { UpdateIssueDto } from './dto/update-issue.dto';
@@ -15,7 +23,7 @@ export class IssuesController {
   @Get()
   async findAll() {
     const data = await this.issuesService.findAll();
-    return {data};
+    return { data };
   }
 
   @Get(':id')
@@ -24,7 +32,10 @@ export class IssuesController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateIssueDto: UpdateIssueDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateIssueDto: UpdateIssueDto,
+  ) {
     return await this.issuesService.update(+id, updateIssueDto);
   }
 
