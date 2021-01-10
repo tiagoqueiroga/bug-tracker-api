@@ -3,6 +3,8 @@ import { IssuesModule } from './issues/issues.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+
 import {
   DATABASE_HOST,
   DATABASE_USERNAME,
@@ -37,6 +39,7 @@ import {
     UsersModule,
     IssuesModule,
     UsersModule,
+    AuthModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
