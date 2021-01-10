@@ -15,9 +15,8 @@ async function bootstrap() {
     .addTag('bug-tracker')
     .build();
   
-    const document = SwaggerModule.createDocument(app, options);
+  const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
-
 
   app.useGlobalPipes(new ValidationPipe({
       whitelist: true,
