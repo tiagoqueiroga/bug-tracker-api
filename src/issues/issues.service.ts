@@ -8,7 +8,7 @@ import { Issue } from './entities/issue.entity';
 
 @Injectable()
 export class IssuesService {
-  private resourceName: string = 'Issue';
+  private resourceName = 'Issue';
 
   constructor(
     @InjectRepository(Issue)
@@ -49,4 +49,5 @@ export class IssuesService {
     const issue = await this.findOne(id);
     return await this.issueRepository.remove(issue);
   }
+
 }

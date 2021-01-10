@@ -6,14 +6,20 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { NotFoundException } from '@nestjs/common';
 
+export interface UserFindOne {
+  id?: number;
+  email: string;
+}
+
 @Injectable()
 export class UsersService {
-  private resourceName: string = 'User';
+
+  private resourceName = 'User';
 
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto) {
     const userExisted = await this.userRepository.findOne({
@@ -55,4 +61,13 @@ export class UsersService {
     const user = await this.findOne(id);
     return await this.userRepository.remove(user);
   }
+
+  async findByEmail(data: UserFindOne) {
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .where(data)
+      .addSelect('user.password')
+      .getOne()
+  }
+
 }

@@ -1,10 +1,15 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
+import { SERVER_PORT } from './config/constants';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  //const logger = new Logger('Bootstrap')
+  const config = app.get(ConfigService)
+  const port = parseInt(config.get<string>(SERVER_PORT))
 
   // Swagger
   const options = new DocumentBuilder()
@@ -23,6 +28,6 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3000);
+  await app.listen(port);
 }
 bootstrap();
