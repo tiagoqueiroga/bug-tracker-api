@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { User, Auth } from 'src/common/decorators'
 import { User as UserEntity } from 'src/users/entities/user.entity'
-import { LocalAuthGuard, JwtAuthGuard } from './guards/index'
+import { LocalAuthGuard } from './guards/index'
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
-
+import { StandardResponse } from '../common/entities/responses.entity'
 
 @ApiTags('Auth routes')
 @Controller('auth')
@@ -16,7 +16,7 @@ export class AuthController {
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
-    async login(@User() user: UserEntity) {
+    async login(@User() user: UserEntity): Promise<StandardResponse> {
         const data = await this.authService.login(user)
         return {
             message: 'Logged in successfully',
@@ -26,7 +26,7 @@ export class AuthController {
 
     @Auth()
     @Post('refresh')
-    async refreshToken(@User() user): Promise<any> {
+    async refreshToken(@User() user): Promise<StandardResponse> {
         return {
             message: "Token has been refreshed successfully",
             data: await this.authService.login(user)
@@ -35,7 +35,7 @@ export class AuthController {
 
     @Auth()
     @Get('profile')
-    async profile(@User() user) {
+    async profile(@User() user): Promise<StandardResponse> {
         return {
             message: "User profile",
             data: user
