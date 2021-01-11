@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { User } from 'src/common/decorators'
+import { User, Auth } from 'src/common/decorators'
 import { User as UserEntity } from 'src/users/entities/user.entity'
 import { LocalAuthGuard, JwtAuthGuard } from './guards/index'
 import { AuthService } from './auth.service';
+import { ApiTags } from '@nestjs/swagger';
 
 
+@ApiTags('Auth routes')
 @Controller('auth')
 export class AuthController {
 
@@ -22,7 +24,7 @@ export class AuthController {
         }
     }
 
-    @UseGuards(JwtAuthGuard)
+    @Auth()
     @Post('refresh')
     async refreshToken(@User() user): Promise<any> {
         return {
@@ -31,9 +33,12 @@ export class AuthController {
         }
     }
 
-    @UseGuards(JwtAuthGuard)
+    @Auth()
     @Get('profile')
     async profile(@User() user) {
-        return await user;
+        return {
+            message: "User profile",
+            data: user
+        }
     }
 }

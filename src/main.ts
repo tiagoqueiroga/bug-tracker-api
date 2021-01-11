@@ -1,8 +1,9 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+//import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { initSwagger } from './app.swagger';
 import { SERVER_PORT } from './config/constants';
 
 async function bootstrap() {
@@ -12,15 +13,10 @@ async function bootstrap() {
   const port = parseInt(config.get<string>(SERVER_PORT))
 
   // Swagger
-  const options = new DocumentBuilder()
-    .setTitle('Bug Tracker')
-    .setDescription('Bug tracker API description')
-    .setVersion('1.0')
-    .addTag('bug-tracker')
-    .build();
+  initSwagger(app);
 
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  //const document = SwaggerModule.createDocument(app, options);
+  //SwaggerModule.setup('api', app, document);
 
   app.useGlobalPipes(
     new ValidationPipe({
