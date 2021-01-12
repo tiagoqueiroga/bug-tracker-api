@@ -5,6 +5,7 @@ import { UpdateIssueDto } from './dto/update-issue.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Issue } from './entities/issue.entity';
+import { User as UserEntity } from 'src/users/entities/user.entity'
 
 @Injectable()
 export class IssuesService {
@@ -15,17 +16,18 @@ export class IssuesService {
     private readonly issueRepository: Repository<Issue>,
   ) { }
 
-  async create(createIssueDto: CreateIssueDto) {
+  async create(createIssueDto: CreateIssueDto, user: UserEntity) {
     const issue = this.issueRepository.create({ ...createIssueDto });
+    issue.created_by = user
     return await this.issueRepository.save(issue);
   }
 
   async findAll() {
-    return await this.issueRepository.find();
+    return await this.issueRepository.find({ relations: ["created_by"] });
   }
 
   async findOne(id: number) {
-    const issue = await this.issueRepository.findOne(id);
+    const issue = await this.issueRepository.findOne(id, { relations: ["created_by"] });
     if (!issue) {
       throw new NotFoundException(
         `${this.resourceName} does not exist or unauthorized`,

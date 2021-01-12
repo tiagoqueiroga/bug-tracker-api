@@ -7,9 +7,11 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  OneToMany
 } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import { hash } from 'bcrypt';
+import { Issue } from 'src/issues/entities/issue.entity';
 
 @Entity()
 @Unique(['email'])
@@ -26,6 +28,9 @@ export class User {
 
   @Column({ type: 'varchar', length: 128, nullable: false, select: false })
   password: string;
+
+  @OneToMany(() => Issue, issue => issue.created_by)
+  issues: Issue[];
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;

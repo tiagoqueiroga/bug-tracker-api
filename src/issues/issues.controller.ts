@@ -11,27 +11,32 @@ import { IssuesService } from './issues.service';
 import { CreateIssueDto } from './dto/create-issue.dto';
 import { UpdateIssueDto } from './dto/update-issue.dto';
 import { StandardResponse } from '../common/entities/responses.entity'
+import { Auth, User } from 'src/common/decorators'
+import { User as UserEntity } from 'src/users/entities/user.entity'
 
 
 @Controller('issues')
 export class IssuesController {
   constructor(private readonly issuesService: IssuesService) { }
 
+  @Auth()
   @Post()
-  async create(@Body() createIssueDto: CreateIssueDto): Promise<StandardResponse> {
-    const data = await this.issuesService.create(createIssueDto);
+  async create(@User() user: UserEntity, @Body() createIssueDto: CreateIssueDto): Promise<StandardResponse> {
+    const data = await this.issuesService.create(createIssueDto, user);
     return {
       message: `Issue has been created.`,
       data: data
     }
   }
 
+  @Auth()
   @Get()
   async findAll(): Promise<StandardResponse> {
     const data = await this.issuesService.findAll();
     return { data };
   }
 
+  @Auth()
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<StandardResponse> {
     const data = await this.issuesService.findOne(+id);
@@ -40,10 +45,11 @@ export class IssuesController {
     }
   }
 
+  @Auth()
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateIssueDto: UpdateIssueDto,
+    @Body() updateIssueDto: UpdateIssueDto
   ): Promise<StandardResponse> {
     const data = await this.issuesService.update(+id, updateIssueDto);
     return {
@@ -52,6 +58,7 @@ export class IssuesController {
     }
   }
 
+  @Auth()
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<StandardResponse> {
     const data = await this.issuesService.remove(+id);

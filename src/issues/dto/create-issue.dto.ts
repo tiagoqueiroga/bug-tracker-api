@@ -1,12 +1,14 @@
-import { IsBoolean, IsString, IsDate } from 'class-validator';
+import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
+import { User } from "../../users/entities/user.entity"
+
 
 export class CreateIssueDto {
   @IsString()
-  title: string;
+  title: string
 
   @IsString()
-  description: string;
+  description: string
 
   @IsBoolean()
-  active: boolean;
+  active?: boolean
 }

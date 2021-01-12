@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Post, UseGuards } from '@nestjs/common';
 import { User, Auth } from 'src/common/decorators'
 import { User as UserEntity } from 'src/users/entities/user.entity'
 import { LocalAuthGuard } from './guards/index'
@@ -30,15 +30,6 @@ export class AuthController {
         return {
             message: "Token has been refreshed successfully",
             data: await this.authService.login(user)
-        }
-    }
-
-    @Auth()
-    @Get('profile')
-    async profile(@User() user): Promise<StandardResponse> {
-        return {
-            message: "User profile",
-            data: user
         }
     }
 }
