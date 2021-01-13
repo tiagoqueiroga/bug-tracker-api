@@ -8,16 +8,15 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { StandardResponse } from '../common/entities/responses.entity'
 import { User, Auth } from 'src/common/decorators'
-import { IssuesService } from 'src/issues/issues.service';
 
-@Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService
+@Controller('user')
+export class UserController {
+  constructor(private readonly usersService: UserService
   ) { }
 
   @Auth()

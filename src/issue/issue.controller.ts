@@ -7,17 +7,17 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { IssuesService } from './issues.service';
+import { IssueService } from './issue.service';
 import { CreateIssueDto } from './dto/create-issue.dto';
 import { UpdateIssueDto } from './dto/update-issue.dto';
 import { StandardResponse } from '../common/entities/responses.entity'
 import { Auth, User } from 'src/common/decorators'
-import { User as UserEntity } from 'src/users/entities/user.entity'
+import { User as UserEntity } from 'src/user/entities/user.entity'
 
 
-@Controller('issues')
-export class IssuesController {
-  constructor(private readonly issuesService: IssuesService) { }
+@Controller('issue')
+export class IssueController {
+  constructor(private readonly issuesService: IssueService) { }
 
   @Auth()
   @Post()

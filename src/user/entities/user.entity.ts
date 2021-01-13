@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import { hash } from 'bcrypt';
-import { Issue } from 'src/issues/entities/issue.entity';
+import { Issue } from 'src/issue/entities/issue.entity';
 
 @Entity()
 @Unique(['email'])

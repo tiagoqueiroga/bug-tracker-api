@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { IssuesModule } from './issues/issues.module';
+import { IssuesModule } from './issue/issue.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 
 import {
@@ -12,6 +12,8 @@ import {
   DATABASE_PASSWORD,
   DATABASE_NAME,
 } from './config/constants';
+import { ProjectsModule } from './project/project.module';
+import { FilterModule } from './filter/filter.module';
 
 @Module({
   imports: [
@@ -40,6 +42,8 @@ import {
     IssuesModule,
     UsersModule,
     AuthModule,
+    ProjectsModule,
+    FilterModule,
   ],
 })
 export class AppModule { }

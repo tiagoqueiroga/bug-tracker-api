@@ -5,10 +5,10 @@ import { UpdateIssueDto } from './dto/update-issue.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Issue } from './entities/issue.entity';
-import { User as UserEntity } from 'src/users/entities/user.entity'
+import { User as UserEntity } from 'src/user/entities/user.entity'
 
 @Injectable()
-export class IssuesService {
+export class IssueService {
   private resourceName = 'Issue';
 
   constructor(

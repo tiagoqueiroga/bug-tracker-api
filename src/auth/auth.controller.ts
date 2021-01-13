@@ -1,6 +1,6 @@
 import { Controller, Post, UseGuards } from '@nestjs/common';
 import { User, Auth } from 'src/common/decorators'
-import { User as UserEntity } from 'src/users/entities/user.entity'
+import { User as UserEntity } from 'src/user/entities/user.entity'
 import { LocalAuthGuard } from './guards/index'
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
