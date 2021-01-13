@@ -13,10 +13,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { StandardResponse } from '../common/entities/responses.entity'
 import { User, Auth } from 'src/common/decorators'
+import { IssuesService } from 'src/issues/issues.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService
+  ) { }
 
   @Auth()
   @Post()
@@ -33,6 +35,15 @@ export class UsersController {
   @Get('profile')
   async profile(@User() user): Promise<StandardResponse> {
     return { message: `User Profile`, data: user };
+  }
+
+  @Auth()
+  @Get('issues')
+  async issues(@User() user): Promise<StandardResponse> {
+    const data = await this.usersService.getIssuesByUser(user.id);
+    return {
+      data: data
+    }
   }
 
   @Auth()
@@ -66,4 +77,5 @@ export class UsersController {
     const data = await this.usersService.remove(+id);
     return { message: `User deleted`, data };
   }
+
 }

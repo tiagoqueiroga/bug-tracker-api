@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { NotFoundException } from '@nestjs/common';
+import { Issue } from 'src/issues/entities/issue.entity';
 
 export interface UserFindOne {
   id?: number;
@@ -19,6 +20,8 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Issue)
+    private readonly issueRepository: Repository<Issue>,
   ) { }
 
   async create(createUserDto: CreateUserDto) {
@@ -70,4 +73,10 @@ export class UsersService {
       .getOne()
   }
 
+  async getIssuesByUser(userId: number) {
+    return await this.issueRepository
+      .createQueryBuilder('issues')
+      .where("created_by= :id", { id: userId })
+      .getMany()
+  }
 }

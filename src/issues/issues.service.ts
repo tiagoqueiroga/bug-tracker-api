@@ -52,4 +52,8 @@ export class IssuesService {
     return await this.issueRepository.remove(issue);
   }
 
+  async getIssuesByUser(userId: number) {
+    return await this.issueRepository.find({ where: { created_by: userId } })
+  }
+
 }
