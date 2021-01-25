@@ -63,7 +63,7 @@ export class IssueController {
   async remove(@Param('id') id: string): Promise<StandardResponse> {
     const data = await this.issuesService.remove(+id);
     return {
-      message: "Issue has been updated",
+      message: "Issue has been deleted",
       data
     }
   }

@@ -2,7 +2,7 @@ import { IsBoolean, IsString } from 'class-validator';
 
 export class CreateProjectDto {
     @IsString()
-    title: string
+    name: string
 
     @IsString()
     description: string

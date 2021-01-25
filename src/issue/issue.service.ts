@@ -23,7 +23,7 @@ export class IssueService {
   }
 
   async findAll() {
-    return await this.issueRepository.find({ relations: ["created_by"] });
+    return await this.issueRepository.find({ relations: ["created_by", "project"] });
   }
 
   async findOne(id: number) {

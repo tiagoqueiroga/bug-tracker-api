@@ -6,8 +6,11 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
+    OneToMany,
+    OneToOne
 } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
+import { Issue } from "../../issue/entities/issue.entity"
 
 @Entity()
 export class Project {
@@ -19,6 +22,9 @@ export class Project {
 
     @Column('text')
     description: string;
+
+    @OneToMany(() => Issue, issue => issue.project)
+    issues: Issue[];
 
     @ManyToOne(() => User, user => user.issues)
     @JoinColumn({ name: "created_by" }) // Set a custom name

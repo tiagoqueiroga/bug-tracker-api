@@ -1,8 +1,8 @@
 import { PartialType, OmitType } from '@nestjs/mapped-types';
 import { CreateIssueDto } from './create-issue.dto';
-import { IsOptional } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
+import { RelationId } from 'typeorm';
 
 export class UpdateIssueDto extends PartialType(CreateIssueDto) {
-    @IsOptional()
-    created_by: number
+
 }
